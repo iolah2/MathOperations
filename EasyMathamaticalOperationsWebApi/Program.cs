@@ -15,15 +15,24 @@ namespace MathOperations.WebApi
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
-
-            //CreateDbIfNotExists(host);
-
-            host.Run();
+            CreateHostBuilder(args).Build().Run();
+            /*var host = CreateHostBuilder(args).Build();
+                CreateDbIfNotExists(host);
+            host.Run();*/
         }
 
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+           Host.CreateDefaultBuilder(args)
+               .ConfigureWebHostDefaults(webBuilder =>
+               {
+                   webBuilder.UseStartup<Startup>();
+               });
+        
+        /*
         /// <summary>
         /// This maybe need just first - after database in package, not needed
+        /// I wrote this for create database with som sample data
+        /// It is not necessary now but important so I comment.
         /// </summary>
         /// <param name="host"></param>
         private static void CreateDbIfNotExists(IHost host)
@@ -42,13 +51,6 @@ namespace MathOperations.WebApi
                     logger.LogError(ex, "An error ocurred while seeding the database.");
                 }
             }
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        }*/
     }
 }

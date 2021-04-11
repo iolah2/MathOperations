@@ -14,11 +14,11 @@ namespace MathOperations.WebApi.Controllers
     [ApiController]
     public class MathController : ControllerBase
     {
-        private readonly ILogger<MathController> _logger;
+        /*private readonly ILogger<MathController> _logger;
         public MathController(ILogger<MathController> logger)
         {
             _logger = logger;
-        }
+        }*/
         // GET: api/<MathController>/history
         [HttpGet("history")]
         public IEnumerable<Calculation> Get()
@@ -39,15 +39,13 @@ namespace MathOperations.WebApi.Controllers
                 context.SaveChanges();
             }
         }
-
-        // POSTí https://stackoverflow.com/questions/35937118/build-json-response-in-web-api-controller - kell még a json file!!!
-        // https://gist.github.com/rheone/11092375
+        
         // POST api/<MathController>/<operationName>
         [HttpPost("{operationName}")]
-        public CalcApi Post(string operationName, [FromBody] InputNumbers numbers)
+        public CalcApiResult Post(string operationName, [FromBody] InputNumbers numbers)
         {
             Operation op;
-            switch (operationName)
+            switch (operationName.ToLower())
             {
                 case "osszeadas":
                     op = Operation.összeadás;
@@ -67,23 +65,24 @@ namespace MathOperations.WebApi.Controllers
                     op = Operation.hatványozás;
                     break;
                 default:
-                    throw new Exception("Nem definiált művelet! Csak osszeadas, kivonas, szorzas, osztas illetve hatvanyozas műveleti kulcsszó használata elfogadott!"+
+                    throw new Exception("Nem definiált művelet! Csak az osszeadas, kivonas, szorzas, osztas illetve hatvanyozas műveleti kulcsszó használata elfogadott(ékezett nélkül)!"+
                         " api/math/<művelet>");
 
             }
-            CalcApi calcApi;
+            
+            CalcApiResult calcApi;
+            /// Calculate and save result into database000
             using (var context = new MathDbContext())
             {
-                calcApi = new CalcApi
+                calcApi = new CalcApiResult
                 (
                     anum : numbers.ANum,
                     bnum : numbers.BNum,
                     muvelet : op.ToString(),
                     eredmeny : numbers.CalculateOperation(op.ToString())
                 );
-                //try
-                //{
-                Calculation calculation = new Calculation
+                
+                Calculation calculation = new ()//Calculation
                 {
                     Created = DateTime.Now,
                     Anum = calcApi.ANum,
@@ -93,12 +92,6 @@ namespace MathOperations.WebApi.Controllers
                 };
                 context.Calculations.Add(calculation);
                 context.SaveChanges();
-                
-                //}
-                //catch (Exception ex)
-                //{
-                //    ;
-                //}                
             }
             return calcApi;
         }

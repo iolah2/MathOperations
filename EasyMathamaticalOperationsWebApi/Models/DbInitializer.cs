@@ -14,12 +14,8 @@ namespace MathOp.Data.Models
             //Write into Api host builder
             context.Database.EnsureCreated();
 
-#if DEBUG
+#if DEBUG           
             
-            using (var ctx = new MathDbContext())
-            {
-
-            }
             if (context.Calculations.Any()) 
               return;
             var calculations = new Calculation[]

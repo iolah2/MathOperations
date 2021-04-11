@@ -3,16 +3,21 @@ using System;
 
 namespace MathOperations.WebApi.Controllers
 {
+    /// <summary>
+    /// We use this class for the input numbers store while operation calculate the result.
+    /// </summary>
     public class InputNumbers
     {
+
+
         public InputNumbers(double aNum, double bNum)
         {
             ANum = aNum;
             BNum = bNum;
         }
 
-        public double ANum { get; internal set; }
-        public double BNum { get; internal set; }
+        public double ANum { get; }
+        public double BNum { get; }
 
         public double CalculateOperation(string operationName)
         {
@@ -23,10 +28,23 @@ namespace MathOperations.WebApi.Controllers
             }
             catch
             {
+                /// If we wrote HttpPost well, this will be called never.
+                /// I set a prefilter there before call CalculateOperation function
                 throw new Exception("Az őn által kért művelet nincs a válsztható műveletek között!");
             }
+            // VS2019 message offered by message this "lambda" version            
+            return op switch
+            {
+                Operation.összeadás => ANum + BNum,
+                Operation.kivonás => ANum - BNum,
+                Operation.szorzás => ANum * BNum,
+                Operation.osztás => ANum / BNum,
+                Operation.hatványozás => Math.Pow(ANum, BNum),
+                _ => throw new Exception("A művelet nincs megvalósítva!"),
+            };
 
-            double result;
+            #region my fisrt switch version - just other format
+            /*double result;
             switch (op)
             {
                 case Operation.összeadás:
@@ -43,13 +61,13 @@ namespace MathOperations.WebApi.Controllers
                     break;
                 case Operation.hatványozás:
                     result = Math.Pow(ANum, BNum);
-                    break;
-                ///If Operation get new item and here that case hasn't written yet.
-                ///Now just needed because switch always need default case
-                default: 
+                    break;                                
+                default:
                     throw new Exception("A művelet nincs megvalósítva!");
             }
-            return result;
+            return result;*/
+            #endregion
+
         }
     }
 }

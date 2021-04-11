@@ -7,12 +7,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace MathOp.Data.Models
-{
+{    
     public enum Operation
     {
-        összeadás,kivonás, szorzás, osztás, hatványozás
+        összeadás, kivonás, szorzás, osztás, hatványozás
     }
 
+    /// <summary>
+    /// Database table class
+    /// The order of properties are important for result json file, when we call HttpGet on api/math/history path
+    /// </summary>
     public class Calculation
     {
         [Key]
@@ -24,9 +28,13 @@ namespace MathOp.Data.Models
         public double Eredmeny { get; set; }
     }
 
-    public class CalcApi
+    /// <summary>
+    /// This will send data to create json file
+    /// We just set once when calculation run is succesful so use private set and parameterized constructor
+    /// </summary>
+    public class CalcApiResult
     {
-        public CalcApi(double anum, double bnum, string muvelet, double eredmeny)
+        public CalcApiResult(double anum, double bnum, string muvelet, double eredmeny)
         {
             ANum = anum;
             BNum = bnum;
