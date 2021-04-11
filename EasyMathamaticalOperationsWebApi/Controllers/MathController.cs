@@ -45,6 +45,7 @@ namespace MathOperations.WebApi.Controllers
         public CalcApiResult Post(string operationName, [FromBody] InputNumbers numbers)
         {
             Operation op;
+            
             switch (operationName.ToLower())
             {
                 case "osszeadas":
@@ -71,7 +72,7 @@ namespace MathOperations.WebApi.Controllers
             }
             
             CalcApiResult calcApi;
-            /// Calculate and save result into database000
+            /// Calculate and save result into database
             using (var context = new MathDbContext())
             {
                 calcApi = new CalcApiResult
@@ -82,7 +83,7 @@ namespace MathOperations.WebApi.Controllers
                     eredmeny : numbers.CalculateOperation(op.ToString())
                 );
                 
-                Calculation calculation = new ()//Calculation
+                Calculation calculation = new ()
                 {
                     Created = DateTime.Now,
                     Anum = calcApi.ANum,

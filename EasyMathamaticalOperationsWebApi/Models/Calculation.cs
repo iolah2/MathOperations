@@ -11,7 +11,7 @@ namespace MathOp.Data.Models
     public enum Operation
     {
         összeadás, kivonás, szorzás, osztás, hatványozás
-    }
+    }    
 
     /// <summary>
     /// Database table class
