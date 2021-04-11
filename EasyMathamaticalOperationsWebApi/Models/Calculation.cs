@@ -23,7 +23,7 @@ namespace MathOp.Data.Models
         public int Id { get; set; }
         public DateTime Created { get; set; }
         public double Anum { get; set; }
-        public double Bnum { get; set; }
+        public double Bnum { get; set; }        
         public string Muvelet { get; set; }
         public double Eredmeny { get; set; }
     }

@@ -31,12 +31,13 @@ namespace MathOperations.WebApi.Controllers
 
         // DELETE api/<MathController>/history
         [HttpDelete("history")]
-        public void Delete()
+        public IEnumerable<Calculation> Delete()//return empty IEnumerable 
         {
             using (var context = new MathDbContext())
             {
                 context.Calculations.RemoveRange(context.Calculations.ToList());
                 context.SaveChanges();
+                return context.Calculations.ToArray();
             }
         }
         

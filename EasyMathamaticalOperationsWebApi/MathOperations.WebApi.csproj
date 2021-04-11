@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Authors>MathOperations.WebApi</Authors>
+    <UserSecretsId>df77d034-4be9-49b1-84b7-0e72e56dee7d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,7 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="MathDatabase.db" />
     <None Remove="MathOperation.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="MathDatabase.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
