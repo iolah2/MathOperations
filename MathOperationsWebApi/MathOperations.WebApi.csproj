@@ -11,14 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="MathDatabase.db" />
     <None Remove="MathOperation.db" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="MathDatabase.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +20,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties response_1json__JsonSchema="https://bitbucket.org/finproducts/hayson/raw/master/hayson-json-schema.json" /></VisualStudio></ProjectExtensions>
+  <ItemGroup>
+    <None Update="MathDatabase.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

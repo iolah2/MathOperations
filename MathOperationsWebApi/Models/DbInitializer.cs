@@ -10,11 +10,9 @@ namespace MathOp.Data.Models
     {
         public static void Initialize(MathDbContext context)
         {
-            //https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-5.0
+            #if DEBUG            
             //Write into Api host builder
-            context.Database.EnsureCreated();
-
-#if DEBUG           
+            context.Database.EnsureCreated();                 
             
             if (context.Calculations.Any()) 
               return;

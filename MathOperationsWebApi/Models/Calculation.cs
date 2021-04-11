@@ -12,10 +12,9 @@ namespace MathOp.Data.Models
     {
         összeadás, kivonás, szorzás, osztás, hatványozás
     }    
-
+    
     /// <summary>
-    /// Database table class
-    /// The order of properties are important for result json file, when we call HttpGet on api/math/history path
+    /// SQLite table class
     /// </summary>
     public class Calculation
     {
@@ -29,8 +28,7 @@ namespace MathOp.Data.Models
     }
 
     /// <summary>
-    /// This will send data to create json file
-    /// We just set once when calculation run is succesful so use private set and parameterized constructor
+    /// This will send data to create json file    
     /// </summary>
     public class CalcApiResult
     {
